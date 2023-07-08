@@ -69,13 +69,13 @@ jobs:
       - name: modify the image
         run: |
           ls
-          git config user.email tanmay8928@gmail.com
-          git config user.name Tanmay
+          git config user.email naveen_gupta_us@hotmail.com
+          git config user.name forritu72
           pwd
-          cat deployment.yaml
+          cat myapp/values.yaml
           pwd
-          sed -i "s+tanmay238/images.*+tanmay238/images:app-$RUN_NUMBER+g" deployment.yaml
-          cat deployment.yaml
+          sed -i "s+forritu72/argotest.*+forritu72/argotest:app-$RUN_NUMBER+g" myapp/values.yaml
+          cat myapp/values.yaml
           git add .
           git commit -m 'Done  by Github Actions   Job changemanifest: ${{ github.run_number }}'
           git push origin main
