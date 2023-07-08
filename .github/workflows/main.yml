@@ -56,7 +56,7 @@ jobs:
             with:
               context: .
               push: true
-              tags: forritu72/argotest:app-${{ github.run_number }}
+              tags: naveenguptaus/argotest:app-${{ github.run_number }}
   modifygit:
     needs: docker
     runs-on: ubuntu-latest
@@ -74,7 +74,7 @@ jobs:
           pwd
           cat myapp/values.yaml
           pwd
-          sed -i "s+forritu72/argotest.*+forritu72/argotest:app-$RUN_NUMBER+g" myapp/values.yaml
+          sed -i "s+naveenguptaus/argotest.*+naveenguptaus/argotest:app-$RUN_NUMBER+g" myapp/values.yaml
           cat myapp/values.yaml
           git add .
           git commit -m 'Done  by Github Actions   Job changemanifest: ${{ github.run_number }}'
