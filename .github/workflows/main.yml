@@ -74,7 +74,7 @@ jobs:
           pwd
           cat myapp/values.yaml
           pwd
-          sed -i "s+naveenguptaus/argotest.*+naveenguptaus/argotest:app-$RUN_NUMBER+g" myapp/values.yaml
+         
           sed -Ei "s/(tag:).*/\1 app-$RUN_NUMBER/" myapp/values.yaml
           cat myapp/values.yaml
           git add .
