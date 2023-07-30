@@ -12,7 +12,7 @@ permissions:
   contents: read
   
 env:
-  IMAGE_NAME: naveen
+  IMAGE_NAME: $(basename ${{ github.ref }})-naveen
   BRANCH: $(basename ${{ github.ref }})
   
 jobs:
@@ -67,7 +67,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: naveenguptaus/${{ env.IMAGE_NAME }}-${{ github.ref }}:${{ github.run_number }}
+        tags: naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}
               
   modifygit:
     needs: docker
