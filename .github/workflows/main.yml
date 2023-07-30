@@ -13,9 +13,7 @@ permissions:
   
 env:
   #IMAGE_NAME: $(basename ${{ github.ref }})-naveen
-  BRANCH: $(basename ${{ github.ref }})
-  BRANCH_NAME: ${{ env.BRANCH }}
-  
+  BRANCH: $(basename ${{ github.ref }}) 
 jobs:
   build:
     runs-on: ubuntu-latest
