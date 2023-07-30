@@ -12,7 +12,7 @@ permissions:
   contents: read
   
 env:
-  IMAGE_NAME: ${GITHUB_REF##*/}
+  IMAGE_NAME: $(basename ${{ github.ref }}) 
   BRANCH: naveen-$(basename ${{ github.ref }}) 
 jobs:
   build:
@@ -58,25 +58,26 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
-#     # Storing the value of env.BRANCH into another variable
-#     - name: Store value in another variable
-#       run: |
-#         ANOTHER_VARIABLE=${{ env.BRANCH }}
-#         echo "The value of ANOTHER_VARIABLE is $ANOTHER_VARIABLE"
-#       # Set ANOTHER_VARIABLE as an environment variable
-#       env:
-#         IMAGE_NAME: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}
-     
-#     - name: Use ANOTHER_VARIABLE in another step
-#       run: |
-#         echo "Using ANOTHER_VARIABLE in another step: $IMAGE_NAME" 
+     # Storing the value of env.BRANCH into another variable
+    - name: Store value in another variable
+      run: |
+          ANOTHER_VARIABLE=${{ env.BRANCH }}
+          echo "The value of ANOTHER_VARIABLE is $ANOTHER_VARIABLE"
+        # Set ANOTHER_VARIABLE as an environment variable
+      env:
+          ANOTHER_VARIABLE: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}
+
+      # Now you can use ANOTHER_VARIABLE in other steps or globally as needed.
+    - name: Use ANOTHER_VARIABLE in another step
+      run: |
+          echo "Using ANOTHER_VARIABLE in another step: $ANOTHER_VARIABLE"
         
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: naveenguptaus/naveen-${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        tags: naveenguptaus/naveen-${{ env.ANOTHER_VARIABLE }}:${{ github.run_number }}
               
   modifygit:
     needs: docker
