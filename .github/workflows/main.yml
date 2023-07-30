@@ -45,6 +45,10 @@ jobs:
           -
             name: Checkout
             uses: actions/checkout@v3
+            
+          - 
+            name: Print a message 
+            run: echo "$IMAGE_NAME"
           -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v2
