@@ -12,8 +12,9 @@ permissions:
   contents: read
   
 env:
-  IMAGE_NAME: $(basename ${{ github.ref }})-naveen
+  #IMAGE_NAME: $(basename ${{ github.ref }})-naveen
   BRANCH: $(basename ${{ github.ref }})
+  BRANCE_NAME: ${{ env.BRANCH }}
   
 jobs:
   build:
@@ -64,6 +65,8 @@ jobs:
         
     - name: Build and push
       uses: docker/build-push-action@v3
+      env:
+       IMAGE_NAME: naveen-${{ env.BRANCE_NAME }}
       with:
         context: .
         push: true
