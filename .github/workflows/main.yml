@@ -48,7 +48,7 @@ jobs:
             
           - 
             name: Print a message 
-            run: echo "$IMAGE_NAME"
+            run: echo "${{env.IMAGE_NAME }}"
           -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v2
