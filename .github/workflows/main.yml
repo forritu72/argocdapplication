@@ -12,7 +12,8 @@ permissions:
   contents: read
   
 env:
-  IMAGE_NAME: naveen-$(basename ${{ github.ref }})
+  IMAGE_NAME: naveen
+  BRANCH: $(basename ${{ github.ref }})
   
 jobs:
   build:
@@ -67,7 +68,7 @@ jobs:
             with:
               context: .
               push: true
-              tags: naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+              tags: naveenguptaus/${{ env.IMAGE_NAME }}-${{ env.BRNACH }}:${{ github.run_number }}
               
               
               
