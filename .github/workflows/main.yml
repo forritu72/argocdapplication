@@ -57,14 +57,15 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-   
+        
+    # Storing the value of env.BRANCH into another variable
     - name: Store value in another variable
       run: |
         ANOTHER_VARIABLE=${{ env.BRANCH }}
         echo "The value of ANOTHER_VARIABLE is $ANOTHER_VARIABLE"
-        # Set ANOTHER_VARIABLE as an environment variable
-        env:
-          IMAGE_NAME: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}
+      # Set ANOTHER_VARIABLE as an environment variable
+      env:
+        IMAGE_NAME: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}
         
     - name: Build and push
       uses: docker/build-push-action@v3
