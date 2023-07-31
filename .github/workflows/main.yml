@@ -12,8 +12,7 @@ permissions:
   contents: read
   
 env:
-  IMAGE_NAME: $(basename ${{ github.ref }}) 
-  BRANCH: $(basename ${{ github.ref }}) 
+  IMAGE_NAME: naveen-$(basename ${{ github.ref }})
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -74,7 +73,17 @@ jobs:
       with:
         context: .
         push: true
-        tags: naveenguptaus/naveen-$ANOTHER_VARIABLE:${{ github.run_number }}
+        tags: naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+        
+        
+    - name: Build Docker Image
+      run: |
+       docker build -t naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }} . 
+      
+       - name: Push Docker Image To Google Artifact Registry
+         run: |
+          docker push naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}        
+        
               
   modifygit:
     needs: docker
@@ -92,10 +101,10 @@ jobs:
         git config user.email naveen_gupta_us@hotmail.com
         git config user.name forritu72
         pwd
-        cat myapp/values-${{ github.ref }}.yaml
+        cat myapp/values-$(basename ${{ github.ref }}).yaml
         pwd
-        sed -Ei "s/(tag:).*/\1 $RUN_NUMBER/" myapp/values-${{ github.ref }}.yaml
-        cat myapp/values-${{ github.ref }}.yaml
+        sed -Ei "s/(tag:).*/\1 $RUN_NUMBER/" myapp/values-$(basename ${{ github.ref }}).yaml
+        cat myapp/values-$(basename ${{ github.ref }}).yaml
         git add .
         git commit -m "Done by Github Actions Job changemanifest: ${{ github.run_number }}"
         git push origin main
