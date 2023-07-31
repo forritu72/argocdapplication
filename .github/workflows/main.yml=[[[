@@ -13,6 +13,7 @@ permissions:
   
 env:
   IMAGE_NAME: naveen-$(basename ${{ github.ref }})
+  ### ref/head/main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -57,17 +58,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
-    # Storing the value of env.BRANCH into another variable
-    - name: Store value in another variable
-      id: store-value
-      run: |
-          echo "::set-output name=ANOTHER_VARIABLE::${{ env.BRANCH }}"
-        
-    # Now you can use ANOTHER_VARIABLE in other steps or globally as needed.
-    - name: Use ANOTHER_VARIABLE in another step
-      run: |
-          echo "Using ANOTHER_VARIABLE in another step: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}"
-            
+    
+
+          
     - name: Build Docker Image
       run: |
        docker build -t naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }} . 
