@@ -67,22 +67,14 @@ jobs:
     - name: Use ANOTHER_VARIABLE in another step
       run: |
           echo "Using ANOTHER_VARIABLE in another step: ${{ steps.store-value.outputs.ANOTHER_VARIABLE }}"
-        
-    - name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        push: true
-        tags: naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}
-        
-        
+            
     - name: Build Docker Image
       run: |
        docker build -t naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }} . 
       
-       - name: Push Docker Image To Google Artifact Registry
-         run: |
-          docker push naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}        
+    - name: Push Docker Image To Docker Hub
+      run: |
+       docker push naveenguptaus/${{ env.IMAGE_NAME }}:${{ github.run_number }}        
         
               
   modifygit:
