@@ -2,9 +2,9 @@ name: Build and Deploy to Amazon ECS
 
 # Define when the workflow should run
 on:
-  push:
-    branches:
-      - development # Change this to the branch you want to trigger the workflow on
+  # push:
+  #   branches:
+  #     - development # Change this to the branch you want to trigger the workflow on
   workflow_dispatch:  
 
 # Define environment variables used in the workflow
